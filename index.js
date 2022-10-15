@@ -14,8 +14,7 @@ app.use(cors());
 const mongodb = require('mongodb');
 const mongoClient = mongodb.MongoClient;
 
-const dbUrl = "mongodb+srv://dbPractice:qdMxjaPavgeHfniU@expressroute.mfmma.mongodb.net/todoList?retryWrites=true&w=majority"
-
+const port = process.env.PORT || 4000 ;
 app.get("/getTodoList",async function(req,res){
 
     try {
@@ -39,7 +38,7 @@ app.post("/saveTodoList",async function(req,res){
     try {
         const {data} =req.body;
 
-        const clientInfo = await mongoClient.connect(dbUrl);
+        const clientInfo = await mongoClient.connect(process.env.DB_URL);
         const db = await clientInfo.db("todo");
         const list = await db.collection("todoList").insertMany(data);
         clientInfo.close();
@@ -50,6 +49,6 @@ app.post("/saveTodoList",async function(req,res){
     }
 })
 
-app.listen(4000,()=>{
-console.log("Server started on port 4000");
+app.listen(port,()=>{
+console.log(`server started on port ${port}`);
 })
