@@ -9,7 +9,12 @@ app.use(bodyParser.json())
 
 
 const cors = require("cors");
-app.use(cors());
+app.use(cors(
+    {
+        origin:'https://soft-sunflower-5611ed.netlify.app'
+
+    }
+));
 
 const mongodb = require('mongodb');
 const mongoClient = mongodb.MongoClient;
@@ -23,8 +28,8 @@ app.get("/getTodoList",async function(req,res){
         const db = await clientInfo.db("todo");
 
         const result = await db.collection("todoList").find().toArray();
-clientInfo.close();
-res.send(result)
+        clientInfo.close();
+        res.send(result)
 
         
     } catch (error) {
