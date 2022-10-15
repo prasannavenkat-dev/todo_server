@@ -11,7 +11,7 @@ app.use(bodyParser.json())
 const cors = require("cors");
 app.use(cors(
     {
-        origin:'https://soft-sunflower-5611ed.netlify.app'
+        origin:"*"
 
     }
 ));
