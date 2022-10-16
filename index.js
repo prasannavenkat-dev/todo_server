@@ -23,6 +23,7 @@ const port = process.env.PORT || 4000 ;
 app.get("/getTodoList",async function(req,res){
 
     try {
+        res.set('Access-Control-Allow-Origin', '*');
 
         const clientInfo = await mongoClient.connect(dbUrl);
         const db = await clientInfo.db("todo");
