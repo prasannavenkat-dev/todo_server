@@ -9,10 +9,15 @@ app.use(bodyParser.json())
 
 
 const cors = require("cors");
+
+const corsOptions = {
+    origin: "*",
+    credentials: true, //access-control-allow-credentials:true
+    optionSuccessStatus: 200,
+  };
+
 app.use(cors(
-    {
-        origin:"*"
-    }
+    corsOptions
 ));
 
 const mongodb = require('mongodb');
@@ -23,7 +28,6 @@ require('dotenv').config()
 app.get("/getTodoList",async function(req,res){
 
     try {
-        console.log(process.env.DB_URL);
         const clientInfo = await mongoClient.connect(process.env.DB_URL);
         const db = await clientInfo.db("todo");
 
