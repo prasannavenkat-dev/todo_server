@@ -12,7 +12,6 @@ const cors = require("cors");
 app.use(cors(
     {
         origin:"*"
-
     }
 ));
 
@@ -20,19 +19,17 @@ const mongodb = require('mongodb');
 const mongoClient = mongodb.MongoClient;
 
 const port = process.env.PORT || 4000 ;
+require('dotenv').config()
 app.get("/getTodoList",async function(req,res){
 
     try {
-        res.set('Access-Control-Allow-Origin', '*');
-
-        const clientInfo = await mongoClient.connect(dbUrl);
+        console.log(process.env.DB_URL);
+        const clientInfo = await mongoClient.connect(process.env.DB_URL);
         const db = await clientInfo.db("todo");
 
         const result = await db.collection("todoList").find().toArray();
         clientInfo.close();
         res.send(result)
-
-        
     } catch (error) {
         
     }
